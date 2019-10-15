@@ -2,7 +2,8 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-
+from django.db import migrations, models
+import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
@@ -28,5 +29,10 @@ class Migration(migrations.Migration):
                 ('votes', models.IntegerField(default=0)),
                 ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='vote.Question')),
             ],
+        ),
+        migrations.AddField(
+            model_name='choice',
+            name='question',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='polls.Question'),
         ),
     ]

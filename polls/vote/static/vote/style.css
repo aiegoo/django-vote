@@ -1,0 +1,8 @@
+body {
+     background: white url("images/star-bg.svg") no-repeat;
+     background-position: right bottom;
+}
+
+li a {
+     color: green;
+}

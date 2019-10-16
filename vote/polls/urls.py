@@ -21,5 +21,5 @@ admin.autodiscover()
 
 urlpatterns = [
     path('vote/', include('vote.urls')),
-    path('admin/', include(admin.site.urls)),
+    path('admin/', admin.site.urls),
 ]

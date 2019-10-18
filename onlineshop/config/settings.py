@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import pymysql
 pymysql.install_as_MySQLdb()
+SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,7 +28,7 @@ SECRET_KEY = 'tvp51mvzhwip*6@mtxb4_4_g4e%!o^e3yglhedc0b07f#n12%w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '178.128.223.232', '*']
+ALLOWED_HOSTS = ['localhost', '178.128.223.232', '.compute.amazonaws.com', '*']
 
 
 # Application definition
@@ -41,6 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'storages',
     'shop',
+    'cart',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.naver',
+    'coupon',
+    'order',
 ]
 
 MIDDLEWARE = [
@@ -66,7 +75,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'cart.context_processors.cart',
             ],
         },
     },
@@ -126,12 +134,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
-
-########
-# AWS RDS Connected db
-#######
-
 AWS_ACCESS_KEY_ID = 'AKIATV7PZ63DTGDXZCJE'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_REGION = 'ap-northeast-2'
@@ -145,5 +147,23 @@ AWS_LOCATION = 'static'
 
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_DIRS = [
+  os.path.join(BASE_DIR, 'static')
+]
 
-DEFAULT_FILE_STORAGE = 'config.asset_storage.MediaStorage'
+DEFAULT_FILE_STORATE = 'config.asset_storage.MediaStorage'
+
+AUTHENTIFICATION_BACKENDS = (
+    'django.contrib.auth.backends,ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'
+
+
+CART_ID = 'cart_in_session'
+
+IAMPORT_KEY =  '6096708265667204'
+IAMPORT_SECRET = 'r5seuSYbYYPHZDYEcEjZRoqm4by4ekZGpsUUlS5jQU0QxZuKDOKucaRhmqmALmgaOb494asV5tLDsgo6'

@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from .views import *
 
@@ -7,4 +9,4 @@ urlpatterns = [
     path('detail/<int:pk>/', BookmarkDetailView.as_view(), name='detail'),
     path('update/<int:pk>', BookmarkUpdateView.as_view(), name='update'),
     path('delete/<int:pk>', BookmarkDeleteView.as_view(), name='delete'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
